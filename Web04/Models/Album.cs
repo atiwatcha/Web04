@@ -23,5 +23,7 @@ namespace Web04.Models
         public string CoverImageUrl { get; set; }
 
         public ICollection<Song> Songs { get; set; }
+
+        public TimeSpan TotalLength => TimeSpan.FromSeconds(Songs.Sum(s => s.Length.TotalSeconds));
     }
 }
