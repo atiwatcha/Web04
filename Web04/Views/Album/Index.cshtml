@@ -1,0 +1,21 @@
+﻿<h2>Albums</h2>
+
+@addTagHelper *,Web04
+<vc:album album-id="1"></vc:album>
+
+<vc:album album-id="2"></vc:album>
+
+@*<vc:song-list album-id="1"></vc:album>
+    <hr />
+    <vc:song-list album-id="1"></vc:song-list>*@
+
+
+@*<hr />
+
+    @await Component.InvokeAsync("SongList",
+      new { albumId = 1 })
+
+    <hr />
+
+    @await Component.InvokeAsync("SongList",
+      new { albumId = 2 })*@
