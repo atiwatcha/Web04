@@ -1,5 +1,5 @@
 ﻿@model Album
-    @addTagHelper *,Web04
+
 <div class="panel panel-default">
     <div class="panel-body">
 
@@ -10,9 +10,10 @@
 
             </div>
             <div class="col-xs-8">
-                <h2>@Model.Title</h2>
+                <h3 style="margin-top: 0px;">@Model.Title</h3>
 
                 <vc:song-list album-id="@Model.Id" />
+
             </div>
         </div>
 

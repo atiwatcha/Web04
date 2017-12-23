@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 using Web04.Data;
 
 namespace Web04.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("25601223082220_Playlist")]
+    partial class Playlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,6 +129,24 @@ namespace Web04.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Web04.Models.Album", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Artist");
+
+                    b.Property<string>("CoverImageUrl");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Albums");
+                });
+
             modelBuilder.Entity("Web04.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -180,15 +198,14 @@ namespace Web04.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Web04.Models.MusicItem", b =>
+            modelBuilder.Entity("Web04.Models.Song", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
+                    b.Property<int?>("AlbumId");
 
-                    b.Property<int?>("PlaylistId");
+                    b.Property<TimeSpan>("Length");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -196,55 +213,9 @@ namespace Web04.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlaylistId");
-
-                    b.ToTable("MusicItem");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("MusicItem");
-                });
-
-            modelBuilder.Entity("Web04.Models.Playlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("OwnerId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Playlist");
-                });
-
-            modelBuilder.Entity("Web04.Models.Album", b =>
-                {
-                    b.HasBaseType("Web04.Models.MusicItem");
-
-                    b.Property<string>("Artist");
-
-                    b.Property<string>("CoverImageUrl");
-
-                    b.ToTable("Album");
-
-                    b.HasDiscriminator().HasValue("Album");
-                });
-
-            modelBuilder.Entity("Web04.Models.Song", b =>
-                {
-                    b.HasBaseType("Web04.Models.MusicItem");
-
-                    b.Property<int?>("AlbumId");
-
-                    b.Property<TimeSpan>("Length");
-
                     b.HasIndex("AlbumId");
 
-                    b.ToTable("Song");
-
-                    b.HasDiscriminator().HasValue("Song");
+                    b.ToTable("Songs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -290,20 +261,6 @@ namespace Web04.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Web04.Models.MusicItem", b =>
-                {
-                    b.HasOne("Web04.Models.Playlist")
-                        .WithMany("Item")
-                        .HasForeignKey("PlaylistId");
-                });
-
-            modelBuilder.Entity("Web04.Models.Playlist", b =>
-                {
-                    b.HasOne("Web04.Models.ApplicationUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("Web04.Models.Song", b =>

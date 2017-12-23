@@ -2,8 +2,6 @@
 
 @foreach (var song in Model)
 {
-    <div>
-        <span class="text-muted pull-right">@song.Length</span>
-        <span style="text-overflow:ellipsis; overflow:hidden">@song.Title</span>
-    </div>
+
+    <vc:song song="song" />
 }

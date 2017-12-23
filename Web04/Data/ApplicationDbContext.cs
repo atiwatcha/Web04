@@ -17,6 +17,7 @@ namespace Web04.Data
 
         public DbSet<Album> Albums { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<Playlist> Playlist { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
