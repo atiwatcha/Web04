@@ -4,15 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Web04.Data;
 using Web04.Models;
 
 namespace Web04.Controllers
 {
     public class HomeController : Controller
     {
+        public ApplicationDbContext Db { get; }
+        public HomeController(ApplicationDbContext db)
+        {
+            Db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var album = Db.Albums.ToList();
+            return View(album);
         }
 
         public IActionResult About()
