@@ -1,0 +1,22 @@
+﻿@model Playlist
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="https://metalrock.org/wp-content/uploads/2017/04/Babymetal-Live-at-Tokyo-Dome-Red-Black-Night-4CD-Deluxe-Edition-2017.jpg"
+                     class="img-responsive img-rounded pull-left" />
+            </div>
+            <div class="col-xs-8">
+                <h3 style="margin-top: 0px;">@Model.Name</h3>
+                @*<vc:song-list album-id="@Model.Id" />*@
+                @*@foreach (var item in Model.Item)
+                {
+                    @Html.DisplayFor(s=>s.Item)
+
+                }*@
+            </div>
+        </div>
+    </div>
+</div>
